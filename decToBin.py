@@ -12,6 +12,8 @@ def assertAllNumeric( numAsString ):
             sys.exit()
 
 def decToBinary( decAsString ):
+    if decAsString == '0':
+        return '0'
     dec = int(decAsString)
     binary = ''
     while dec > 0:
@@ -19,7 +21,35 @@ def decToBinary( decAsString ):
         dec = dec // 2 
     return binary
 
-inputArg = sys.argv[1]
-assertAllNumeric( inputArg ) 
+inputList = []
+set_fill  = False
+max_len = 0
+for inputArg in sys.argv[1:]:
+    if inputArg[0] == '-':
+        if inputArg == '--fill':
+            set_fill = True
+        else:
+            print('unknown modifier: ' + str(inputArg))
+            quit()
 
-print( decToBinary(inputArg) )
+    else:
+        inputList.append(inputArg)
+
+        if max_len < len(decToBinary(inputArg)):
+            max_len = len(decToBinary(inputArg))
+
+
+for inputArg in inputList:
+    assertAllNumeric( inputArg ) 
+    convertedNum = decToBinary(inputArg)
+    if set_fill:
+        if len(convertedNum) == max_len:
+            print( convertedNum , end=' ')
+        else:
+            for i in range(max_len - len(convertedNum)):
+                print('0', end = '')
+            print( convertedNum , end=' ')
+    else:
+        print( convertedNum , end=' ')
+
+print()
