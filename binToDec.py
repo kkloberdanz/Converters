@@ -21,7 +21,9 @@ def binaryToDecimal( binAsString ):
         factor *= 2
     return total
 
-inputArg = sys.argv[1]
-assertAllBinary( inputArg ) 
+# inputArg = sys.argv[1]
 
-print( binaryToDecimal(inputArg) )
+for inputArg in sys.argv[1:]:
+    assertAllBinary( inputArg ) 
+    print( binaryToDecimal(inputArg), end = ' ' )
+print()
